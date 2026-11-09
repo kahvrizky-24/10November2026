@@ -1415,6 +1415,7 @@ document.querySelector('#app').innerHTML = `
     <button
       class="main-button"
       id="openGift"
+      hidden
     >
       OPEN YOUR GIFT
     </button>
@@ -2048,6 +2049,22 @@ document.querySelector('#app').innerHTML = `
 
 </audio>
 
+
+<button
+  class="music-control"
+  id="musicControl"
+  type="button"
+  aria-label="Play background music"
+  aria-pressed="false"
+  hidden
+>
+  <span
+    class="music-control-icon"
+    aria-hidden="true"
+  >♫</span>
+  <span id="musicStatus">MUSIC PAUSED</span>
+</button>
+
 `
 
 
@@ -2069,6 +2086,14 @@ const flowerGarden =
 
 const bgMusic =
   document.querySelector('#bgMusic')
+
+
+const musicControl =
+  document.querySelector('#musicControl')
+
+
+const musicStatus =
+  document.querySelector('#musicStatus')
 
 
 const specialVideo =
@@ -2296,6 +2321,22 @@ function showPage(
 
   currentPage =
     pageId
+
+
+  if (musicControl) {
+    musicControl.hidden =
+      pageId === 'home'
+  }
+
+
+  if (pageId !== 'home') {
+    startMusic()
+  } else if (bgMusic && !bgMusic.paused) {
+    bgMusic.pause()
+
+    musicStarted =
+      false
+  }
 
 
   if (fallingStars) {
@@ -3567,6 +3608,45 @@ let musicStarted =
   false
 
 
+function updateMusicControl() {
+
+  if (!bgMusic || !musicControl) {
+    return
+  }
+
+
+  const isPlaying =
+    !bgMusic.paused
+
+
+  musicControl.classList.toggle(
+    'is-playing',
+    isPlaying
+  )
+
+  musicControl.setAttribute(
+    'aria-pressed',
+    String(isPlaying)
+  )
+
+  musicControl.setAttribute(
+    'aria-label',
+    isPlaying
+      ? 'Pause background music'
+      : 'Play background music'
+  )
+
+
+  if (musicStatus) {
+    musicStatus.textContent =
+      isPlaying
+        ? 'MUSIC PLAYING'
+        : 'MUSIC PAUSED'
+  }
+
+}
+
+
 function startMusic() {
 
   if (!bgMusic) {
@@ -3598,16 +3678,20 @@ function startMusic() {
   ) {
 
     playPromise.catch(
-      () => {
-
-        /*
-           Browser dapat menolak autoplay.
-           Musik akan dicoba lagi ketika
-           pengguna melakukan interaksi.
-        */
+      error => {
 
         musicStarted =
           false
+
+        if (musicStatus) {
+          musicStatus.textContent =
+            'TAP TO PLAY MUSIC'
+        }
+
+        console.warn(
+          'Background music could not start:',
+          error
+        )
 
       }
     )
@@ -3618,20 +3702,61 @@ function startMusic() {
 
 
 // ============================================================
-// START MUSIC AFTER USER INTERACTION
+// MUSIC PLAY / PAUSE CONTROL
 // ============================================================
 
-document.addEventListener(
-  'click',
-  () => {
+if (bgMusic) {
 
-    startMusic()
+  bgMusic.addEventListener(
+    'play',
+    updateMusicControl
+  )
 
-  },
-  {
-    once: true
-  }
-)
+  bgMusic.addEventListener(
+    'pause',
+    updateMusicControl
+  )
+
+}
+
+
+if (musicControl && bgMusic) {
+
+  musicControl.addEventListener(
+    'click',
+    () => {
+
+      if (bgMusic.paused) {
+
+        musicStarted =
+          true
+
+        bgMusic.play().catch(
+          error => {
+
+            if (musicStatus) {
+              musicStatus.textContent =
+                'TAP TO PLAY MUSIC'
+            }
+
+            console.warn(
+              'Background music could not start:',
+              error
+            )
+
+          }
+        )
+
+      } else {
+
+        bgMusic.pause()
+
+      }
+
+    }
+  )
+
+}
 
 
 // ============================================================
@@ -3663,18 +3788,18 @@ const secondsElement =
 
 
 // ============================================================
-// COUNTDOWN DURATION
+// COUNTDOWN DURATION (TEMPORARY TEST MODE)
 // ============================================================
 
-// Temporary testing duration. Restore the original 16-hour countdown with:
-// 16 * 60 * 60 * 1000
-const COUNTDOWN_DURATION_MS =
-  3 * 1000
+// Restore the original fixed target by setting targetDate to:
+// new Date('2026-11-10T00:00:00+07:00').getTime()
+const countdownDurationMs =
+  10 * 1000
 
 
 const targetDate =
   Date.now() +
-  COUNTDOWN_DURATION_MS
+  countdownDurationMs
 
 
 let countdownInterval
@@ -3686,6 +3811,11 @@ let countdownFinished = false
 // ============================================================
 
 function updateCountdown() {
+
+  if (countdownFinished) {
+    return
+  }
+
 
   const now =
     Date.now()
@@ -3726,6 +3856,15 @@ function updateCountdown() {
     if (openGift) {
 
       openGift.disabled = false
+
+      openGift.hidden = false
+
+      openGift.textContent =
+        'Buka Sekarang'
+
+      openGift.classList.add(
+        'countdown-ready'
+      )
 
       openGift.classList.remove(
         'countdown-locked'
@@ -3830,6 +3969,7 @@ function updateCountdown() {
 if (openGift) {
 
   openGift.disabled = true
+  openGift.hidden = true
 
   openGift.classList.add(
     'countdown-locked'
@@ -3908,7 +4048,7 @@ pages.forEach(
 
 const interactiveElements =
   document.querySelectorAll(
-    'button, a, .memory-card, .gift-box'
+    'button:not(#musicControl), a, .memory-card, .gift-box'
   )
 
 
