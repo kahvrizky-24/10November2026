@@ -3788,22 +3788,102 @@ const secondsElement =
 
 
 // ============================================================
-// COUNTDOWN DURATION (TEMPORARY TEST MODE)
+// DATE COUNTDOWN + PERSISTENT ENTRY COUNTDOWN
 // ============================================================
 
-// Restore the original fixed target by setting targetDate to:
-// new Date('2026-11-10T00:00:00+07:00').getTime()
-const countdownDurationMs =
+const secondCountdownDurationMs =
   10 * 1000
 
 
 const targetDate =
-  Date.now() +
-  countdownDurationMs
+  new Date(
+    '2026-11-10T00:00:00+07:00'
+  ).getTime()
+
+
+const countdownStorageKey =
+  'anniversary-countdown-2026-11-10-entry-started-at'
 
 
 let countdownInterval
 let countdownFinished = false
+let secondStageStartedAt = null
+
+
+function readSecondStageStart() {
+
+  try {
+
+    const storedStart =
+      Number(
+        localStorage.getItem(
+          countdownStorageKey
+        )
+      )
+
+
+    if (
+      Number.isFinite(storedStart) &&
+      storedStart >= targetDate &&
+      storedStart <= Date.now()
+    ) {
+      return storedStart
+    }
+
+  } catch (error) {
+
+    console.warn(
+      'Countdown progress could not be read from storage:',
+      error
+    )
+
+  }
+
+
+  return null
+
+}
+
+
+function saveSecondStageStart(startedAt) {
+
+  try {
+
+    localStorage.setItem(
+      countdownStorageKey,
+      String(startedAt)
+    )
+
+  } catch (error) {
+
+    console.warn(
+      'Countdown progress could not be saved to storage:',
+      error
+    )
+
+  }
+
+}
+
+
+if (Date.now() >= targetDate) {
+
+  secondStageStartedAt =
+    readSecondStageStart()
+
+
+  if (secondStageStartedAt === null) {
+
+    secondStageStartedAt =
+      Date.now()
+
+    saveSecondStageStart(
+      secondStageStartedAt
+    )
+
+  }
+
+}
 
 
 // ============================================================
@@ -3821,36 +3901,46 @@ function updateCountdown() {
     Date.now()
 
 
-  const difference =
-    targetDate -
-    now
+  if (now < targetDate) {
+
+    const totalSeconds =
+      Math.ceil(
+        (targetDate - now) / 1000
+      )
 
 
-  if (
-    difference <= 0
-  ) {
+    updateCountdownDisplay(
+      totalSeconds
+    )
+
+
+    return
+
+  }
+
+
+  if (secondStageStartedAt === null) {
+
+    secondStageStartedAt =
+      now
+
+    saveSecondStageStart(
+      secondStageStartedAt
+    )
+
+  }
+
+
+  const remainingMs =
+    secondCountdownDurationMs -
+    (now - secondStageStartedAt)
+
+
+  if (remainingMs <= 0) {
 
     countdownFinished = true
 
-    if (daysElement) {
-      daysElement.textContent =
-        '00'
-    }
-
-    if (hoursElement) {
-      hoursElement.textContent =
-        '00'
-    }
-
-    if (minutesElement) {
-      minutesElement.textContent =
-        '00'
-    }
-
-    if (secondsElement) {
-      secondsElement.textContent =
-        '00'
-    }
+    updateCountdownDisplay(0)
 
 
     if (openGift) {
@@ -3881,7 +3971,6 @@ function updateCountdown() {
 
     clearInterval(countdownInterval)
 
-
     return
 
   }
@@ -3889,9 +3978,18 @@ function updateCountdown() {
 
   const totalSeconds =
     Math.ceil(
-      difference / 1000
+      remainingMs / 1000
     )
 
+
+  updateCountdownDisplay(
+    totalSeconds
+  )
+
+}
+
+
+function updateCountdownDisplay(totalSeconds) {
 
   const days =
     Math.floor(
@@ -3958,7 +4056,6 @@ function updateCountdown() {
 
   }
 
-
 }
 
 
@@ -3991,7 +4088,7 @@ updateCountdown()
 
 countdownInterval = setInterval(
   updateCountdown,
-  1000
+  250
 )
 
 // ============================================================
