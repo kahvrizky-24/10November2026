@@ -224,6 +224,46 @@ dynamicStyle.textContent = `
   visibility: visible;
 }
 
+.flower-garden::before {
+  content: '';
+
+  position: absolute;
+
+  left: -6%;
+  right: -6%;
+  bottom: -16px;
+
+  height: 92px;
+
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(35, 83, 49, .62), transparent 72%),
+    linear-gradient(0deg, rgba(10, 25, 18, .4), transparent 80%);
+
+  pointer-events: none;
+}
+
+.flower-garden::after {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 38px;
+
+  background:
+    repeating-linear-gradient(78deg, transparent 0 17px, rgba(111, 160, 83, .16) 18px 19px, transparent 20px 34px),
+    linear-gradient(0deg, rgba(34, 75, 43, .23), transparent);
+
+  -webkit-mask-image: linear-gradient(0deg, #000 0%, transparent 100%);
+
+  mask-image: linear-gradient(0deg, #000 0%, transparent 100%);
+
+  pointer-events: none;
+}
+
 
 /* ============================================================
    GLOW TANAH
@@ -339,6 +379,8 @@ dynamicStyle.textContent = `
 
   transform-origin: bottom center;
 
+  rotate: 0deg;
+
   opacity: 0;
 
   animation:
@@ -346,7 +388,19 @@ dynamicStyle.textContent = `
     var(--plant-grow)
     cubic-bezier(.18, .75, .25, 1)
     var(--plant-delay)
-    forwards;
+    forwards,
+    plantSway
+    var(--plant-sway-duration)
+    ease-in-out
+    var(--plant-sway-delay)
+    infinite
+    alternate;
+}
+
+@keyframes plantSway {
+  to {
+    rotate: var(--plant-sway-angle);
+  }
 }
 
 
@@ -417,16 +471,20 @@ dynamicStyle.textContent = `
     linear-gradient(
       90deg,
 
-      #245b39 0%,
+      #1d4d32 0%,
 
-      #3f8c55 28%,
+      #37794b 25%,
 
-      #82c875 50%,
+      #72ad67 48%,
 
-      #4b9a5d 72%,
+      #4a8b55 74%,
 
-      #204f32 100%
+      #214a31 100%
     );
+
+  border-radius:
+    54% 46% 18% 18% /
+    5% 5% 2% 2%;
 
   box-shadow:
     0 0 4px
@@ -520,13 +578,13 @@ dynamicStyle.textContent = `
     linear-gradient(
       135deg,
 
-      #c5f2a4 0%,
+      #d2e99b 0%,
 
-      #8ed77b 25%,
+      #91c96e 28%,
 
-      #55aa61 62%,
+      #5b9c50 64%,
 
-      #245d39 100%
+      #285a38 100%
     );
 
   box-shadow:
@@ -536,7 +594,9 @@ dynamicStyle.textContent = `
     inset 1px 1px 4px
     rgba(255,255,255,.28);
 
-  transform-origin: center;
+  transform-origin: 50% 70%;
+
+  rotate: 0deg;
 
   opacity: 0;
 
@@ -549,7 +609,19 @@ dynamicStyle.textContent = `
     .8s
     cubic-bezier(.2, .8, .2, 1)
     var(--leaf-delay)
-    forwards;
+    forwards,
+    leafSway
+    var(--leaf-sway-duration)
+    ease-in-out
+    var(--leaf-sway-delay)
+    infinite
+    alternate;
+}
+
+@keyframes leafSway {
+  to {
+    rotate: var(--leaf-sway-angle);
+  }
 }
 
 
@@ -558,17 +630,22 @@ dynamicStyle.textContent = `
 
   position: absolute;
 
-  left: 10%;
-  top: 49%;
+  left: 8%;
+  top: 48%;
 
-  width: 80%;
-  height: 1px;
+  width: 84%;
+  height: 1.2px;
 
   background:
-    rgba(225,255,215,.6);
+    linear-gradient(
+      90deg,
+      rgba(225,255,215,.12),
+      rgba(231,255,218,.72) 48%,
+      rgba(225,255,215,.12)
+    );
 
   transform:
-    rotate(-8deg);
+    rotate(-11deg);
 }
 
 
@@ -577,17 +654,21 @@ dynamicStyle.textContent = `
 
   position: absolute;
 
-  left: 42%;
-  top: 12%;
+  left: 48%;
+  top: 16%;
 
-  width: 1px;
-  height: 70%;
+  width: 38%;
+  height: 62%;
 
-  background:
-    rgba(40, 100, 55, .38);
+  background: repeating-linear-gradient(
+    155deg,
+    transparent 0 4px,
+    rgba(31, 83, 47, .28) 4.5px 5.2px,
+    transparent 5.7px 8px
+  );
 
-  transform:
-    rotate(25deg);
+  clip-path:
+    polygon(0 0, 100% 0, 0 100%);
 }
 
 
@@ -637,6 +718,8 @@ dynamicStyle.textContent = `
   left: var(--flower-left);
   bottom: var(--flower-bottom);
 
+  rotate: 0deg;
+
   transform:
     translate(-50%, 50%)
     scale(.05);
@@ -648,18 +731,30 @@ dynamicStyle.textContent = `
     1.15s
     cubic-bezier(.2, .8, .2, 1)
     var(--flower-delay)
-    forwards;
+    forwards,
+    flowerSway
+    var(--flower-sway-duration)
+    ease-in-out
+    calc(var(--flower-delay) + 1.15s)
+    infinite
+    alternate;
 
   filter:
     drop-shadow(
       0 0 7px
-      rgba(255, 135, 195, .65)
+      var(--flower-glow)
     )
 
     drop-shadow(
       0 0 16px
-      rgba(255, 100, 180, .28)
+      var(--flower-glow)
     );
+}
+
+@keyframes flowerSway {
+  to {
+    rotate: var(--flower-sway-angle);
+  }
 }
 
 
@@ -710,76 +805,99 @@ dynamicStyle.textContent = `
   position: absolute;
 
   width: 48%;
-  height: 58%;
+  height: 61%;
 
   left: 26%;
-  top: 21%;
+  top: 19%;
 
   border-radius:
-    65% 65%
-    48% 48%;
+    54% 54% 46% 46% /
+    60% 60% 40% 40%;
 
   transform-origin: 50% 90%;
 
   background:
-    radial-gradient(
-      circle at 38% 25%,
-
-      rgba(255,255,255,.99) 0%,
-
-      rgba(255,232,244,.98) 16%,
-
-      rgba(255,178,218,.95) 40%,
-
-      rgba(241,104,180,.93) 68%,
-
-      rgba(178,43,119,.98) 100%
-    );
+    radial-gradient(ellipse at 34% 22%, rgba(255,255,255,.72), transparent 25%),
+    radial-gradient(ellipse at 52% 56%, var(--petal-light) 0%, var(--petal-blush) 28%, var(--petal-mid) 66%, var(--petal-deep) 100%);
 
   box-shadow:
-    0 0 9px
-    rgba(255, 120, 190, .7),
+    0 2px 5px rgba(80, 31, 56, .22),
+    inset 1px 2px 5px rgba(255,255,255,.55),
+    inset -2px -5px 7px rgba(91, 37, 67, .2);
 
-    inset 2px 2px 8px
-    rgba(255,255,255,.4),
+  -webkit-mask-image:
+    radial-gradient(ellipse 66% 68% at 50% 38%, #000 68%, transparent 100%);
 
-    inset -3px -4px 8px
-    rgba(150,40,100,.25);
+  mask-image:
+    radial-gradient(ellipse 66% 68% at 50% 38%, #000 68%, transparent 100%);
+}
+
+.realistic-petal::after {
+  content: '';
+
+  position: absolute;
+
+  left: 49%;
+  top: 27%;
+
+  width: 1px;
+  height: 54%;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.38),
+    rgba(255,255,255,.12) 55%,
+    transparent
+  );
+
+  transform: rotate(4deg);
 }
 
 
 .realistic-petal.p1 {
   transform:
-    rotate(0deg)
-    translateY(-38%);
+    rotate(var(--petal-angle))
+    translateY(-38%)
+    scaleX(var(--petal-width))
+    scaleY(var(--petal-length));
 }
 
 
 .realistic-petal.p2 {
   transform:
-    rotate(72deg)
-    translateY(-38%);
+    rotate(var(--petal-angle))
+    translateY(-38%)
+    scaleX(var(--petal-width))
+    scaleY(var(--petal-length));
 }
 
 
 .realistic-petal.p3 {
   transform:
-    rotate(144deg)
-    translateY(-38%);
+    rotate(var(--petal-angle))
+    translateY(-38%)
+    scaleX(var(--petal-width))
+    scaleY(var(--petal-length));
 }
 
 
 .realistic-petal.p4 {
   transform:
-    rotate(216deg)
-    translateY(-38%);
+    rotate(var(--petal-angle))
+    translateY(-38%)
+    scaleX(var(--petal-width))
+    scaleY(var(--petal-length));
 }
 
 
 .realistic-petal.p5 {
   transform:
-    rotate(288deg)
-    translateY(-38%);
+    rotate(var(--petal-angle))
+    translateY(-38%)
+    scaleX(var(--petal-width))
+    scaleY(var(--petal-length));
 }
 
 
@@ -802,23 +920,36 @@ dynamicStyle.textContent = `
     radial-gradient(
       circle,
 
-      #fffbd0 0%,
-
-      #ffe66e 28%,
-
-      #ffc04b 55%,
-
-      #e88731 100%
+      rgba(255,255,235,.98) 0%,
+      var(--flower-center) 32%,
+      #c99555 72%,
+      var(--flower-center-deep) 100%
     );
 
   box-shadow:
-    0 0 10px
-    rgba(255, 225, 100, .95),
+    0 1px 4px rgba(76, 45, 28, .3),
+    inset 0 0 7px rgba(255,255,255,.55);
 
-    inset 0 0 7px
-    rgba(255,255,255,.55);
+  overflow: hidden;
 
   z-index: 5;
+}
+
+.flower-inner::after {
+  content: '';
+
+  position: absolute;
+
+  inset: 12%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle, rgba(106, 65, 36, .55) 0 1px, transparent 1.5px);
+
+  background-size: 4px 4px;
+
+  opacity: .46;
 }
 
 
@@ -837,16 +968,14 @@ dynamicStyle.textContent = `
     radial-gradient(
       circle,
 
-      #fffbd8,
-
-      #ffdc65 45%,
-
-      #d77a2d 100%
+      #fff6cf,
+      var(--flower-center) 52%,
+      var(--flower-center-deep) 100%
     );
 
   box-shadow:
-    0 0 6px
-    rgba(255, 225, 110, .95);
+    inset 0 1px 2px rgba(255,255,255,.62),
+    0 1px 3px rgba(85, 49, 27, .3);
 
   z-index: 7;
 }
@@ -1075,6 +1204,22 @@ dynamicStyle.textContent = `
 
   .realistic-leaf {
     opacity: .85;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .realistic-plant,
+  .realistic-flower,
+  .realistic-leaf {
+    animation: none !important;
+
+    opacity: 1;
+
+    transform: none;
+
+    rotate: 0deg;
   }
 
 }
@@ -2368,6 +2513,21 @@ function createRealisticPlant(
     `${-3 + Math.random() * 6}deg`
   )
 
+  plant.style.setProperty(
+    '--plant-sway-angle',
+    `${-.8 + Math.random() * 1.6}deg`
+  )
+
+  plant.style.setProperty(
+    '--plant-sway-duration',
+    `${4.5 + Math.random() * 3}s`
+  )
+
+  plant.style.setProperty(
+    '--plant-sway-delay',
+    `${Math.random() * -5}s`
+  )
+
 
   // ----------------------------------------------------------
   // BATANG
@@ -2559,6 +2719,21 @@ function createRealisticPlant(
       `${.7 + i * .12 + Math.random() * .4}s`
     )
 
+    leaf.style.setProperty(
+      '--leaf-sway-angle',
+      `${-2 + Math.random() * 4}deg`
+    )
+
+    leaf.style.setProperty(
+      '--leaf-sway-duration',
+      `${3.2 + Math.random() * 3}s`
+    )
+
+    leaf.style.setProperty(
+      '--leaf-sway-delay',
+      `${Math.random() * -4}s`
+    )
+
 
     plant.appendChild(
       leaf
@@ -2576,9 +2751,99 @@ function createRealisticPlant(
       'div'
     )
 
+  const flowerPalettes = [
+    {
+      light: 'rgba(255,255,255,.98)',
+      blush: 'rgba(255,225,238,.96)',
+      mid: 'rgba(246,157,191,.94)',
+      deep: 'rgba(186,78,120,.96)',
+      glow: 'rgba(246,157,191,.48)',
+      center: '#f8df91',
+      centerDeep: '#bb793b'
+    },
+    {
+      light: 'rgba(255,250,242,.98)',
+      blush: 'rgba(255,220,211,.96)',
+      mid: 'rgba(244,166,145,.94)',
+      deep: 'rgba(176,91,91,.96)',
+      glow: 'rgba(244,166,145,.45)',
+      center: '#f6d78e',
+      centerDeep: '#ad7137'
+    },
+    {
+      light: 'rgba(255,255,255,.98)',
+      blush: 'rgba(238,226,255,.96)',
+      mid: 'rgba(190,163,224,.94)',
+      deep: 'rgba(112,82,151,.96)',
+      glow: 'rgba(190,163,224,.48)',
+      center: '#f2df9d',
+      centerDeep: '#ae7746'
+    },
+    {
+      light: 'rgba(255,255,250,.98)',
+      blush: 'rgba(255,230,240,.96)',
+      mid: 'rgba(225,170,199,.94)',
+      deep: 'rgba(145,91,130,.96)',
+      glow: 'rgba(225,170,199,.45)',
+      center: '#f8dfa0',
+      centerDeep: '#a86e3d'
+    }
+  ]
+
+  const palette =
+    flowerPalettes[
+      Math.floor(
+        Math.random() * flowerPalettes.length
+      )
+    ]
 
   flower.className =
     'realistic-flower'
+
+  flower.style.setProperty(
+    '--petal-light',
+    palette.light
+  )
+
+  flower.style.setProperty(
+    '--petal-blush',
+    palette.blush
+  )
+
+  flower.style.setProperty(
+    '--petal-mid',
+    palette.mid
+  )
+
+  flower.style.setProperty(
+    '--petal-deep',
+    palette.deep
+  )
+
+  flower.style.setProperty(
+    '--flower-glow',
+    palette.glow
+  )
+
+  flower.style.setProperty(
+    '--flower-center',
+    palette.center
+  )
+
+  flower.style.setProperty(
+    '--flower-center-deep',
+    palette.centerDeep
+  )
+
+  flower.style.setProperty(
+    '--flower-sway-angle',
+    `${-.9 + Math.random() * 1.8}deg`
+  )
+
+  flower.style.setProperty(
+    '--flower-sway-duration',
+    `${3.8 + Math.random() * 2.8}s`
+  )
 
 
   flower.style.setProperty(
@@ -2623,6 +2888,21 @@ function createRealisticPlant(
 
     petal.className =
       `realistic-petal p${i}`
+
+    petal.style.setProperty(
+      '--petal-angle',
+      `${(i - 1) * 72 + (-5 + Math.random() * 10)}deg`
+    )
+
+    petal.style.setProperty(
+      '--petal-width',
+      `${.9 + Math.random() * .18}`
+    )
+
+    petal.style.setProperty(
+      '--petal-length',
+      `${.92 + Math.random() * .16}`
+    )
 
 
     flower.appendChild(
