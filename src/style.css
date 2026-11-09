@@ -1,0 +1,3227 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+
+  background: #02020b;
+
+  color: white;
+
+  font-family:
+    "Segoe UI",
+    "Poppins",
+    Arial,
+    sans-serif;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+#app {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   SITE BACKGROUND
+========================================================= */
+
+.site-background {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity .8s ease,
+    visibility .8s ease;
+}
+
+.stars.stars-active {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+.falling-star {
+  position: absolute;
+
+  top: var(--star-top);
+
+  left: var(--star-left);
+
+  width: var(--star-size);
+
+  height: var(--star-size);
+
+  border-radius: 50%;
+
+  background: var(--star-color);
+
+  box-shadow:
+    0 0 5px 1px rgba(255, 235, 248, .5),
+    0 0 11px 2px rgba(210, 155, 255, .2);
+
+  opacity: .7;
+
+  animation:
+    fallingStar
+    var(--star-duration)
+    linear
+    var(--star-delay)
+    infinite;
+}
+
+.stars:not(.stars-active) .falling-star {
+  animation-play-state: paused;
+}
+
+.falling-star.twinkling {
+  animation:
+    fallingStar
+      var(--star-duration)
+      linear
+      var(--star-delay)
+      infinite,
+    starTwinkle
+      2.8s
+      ease-in-out
+      var(--star-twinkle-delay)
+      infinite;
+}
+
+@keyframes fallingStar {
+  from {
+    transform: translate3d(0, -110vh, 0);
+  }
+
+  to {
+    transform: translate3d(var(--star-drift), 110vh, 0);
+  }
+}
+
+@keyframes starTwinkle {
+  0%,
+  100% {
+    opacity: .35;
+  }
+
+  50% {
+    opacity: .9;
+  }
+}
+
+
+/* =========================================================
+   FLOATING HEARTS
+========================================================= */
+
+.floating-hearts {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   PAGE
+   KUNCI PERBAIKAN LAYER
+========================================================= */
+
+.page {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  /*
+     Semua halaman berada DI ATAS bunga.
+  */
+
+  z-index: 10;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PAGE ACTIVE
+========================================================= */
+
+.page.active {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   FLOWER GARDEN
+   KHUSUS LAYER BUNGA
+========================================================= */
+
+.flower-garden {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  /*
+     Bunga hanya mengambil area bawah.
+     Tidak menutupi seluruh halaman.
+  */
+
+  height: 210px;
+
+  /*
+     ========================================================
+     PERBAIKAN UTAMA
+     ========================================================
+
+     Bunga berada di belakang seluruh halaman.
+
+     Jangan gunakan z-index 20 di sini.
+  */
+
+  z-index: 1 !important;
+
+  /*
+     Bunga tidak boleh menangkap klik.
+  */
+
+  pointer-events: none !important;
+
+  overflow: hidden;
+
+  /*
+     Tetap tampil normal.
+  */
+
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+/* =========================================================
+   FLOWER GARDEN CONTENT
+========================================================= */
+
+.flower-garden * {
+  pointer-events: none !important;
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.page-home {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+  position: relative;
+
+  z-index: 20;
+
+  text-align: center;
+
+  width: min(92vw, 900px);
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   SMALL LABEL
+========================================================= */
+
+.small-label {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-content h1,
+.hero-content h2,
+.hero-description {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.main-button {
+  position: relative;
+
+  z-index: 30;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   TIME BOX
+========================================================= */
+
+.time-box {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   SEPARATOR
+========================================================= */
+
+.separator {
+  position: relative;
+
+  z-index: 20;
+}
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown {
+  position: relative;
+
+  z-index: 20;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  margin: 42px 0 18px;
+}
+
+.time-box {
+  min-width: 95px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.time-box span {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(42px, 6vw, 70px);
+
+  line-height: 1;
+
+  color: #fff;
+
+  text-shadow:
+    0 0 15px
+    rgba(255, 90, 175, 0.55);
+}
+
+.time-box small {
+  margin-top: 8px;
+
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+}
+
+.separator {
+  color: #ff72b4;
+
+  font-size: 42px;
+
+  margin-top: -15px;
+
+  text-shadow:
+    0 0 10px
+    rgba(255, 80, 160, 0.6);
+}
+
+.countdown-text {
+  color:
+    rgba(255, 255, 255, 0.5);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.main-button {
+  position: relative;
+
+  z-index: 30;
+
+  margin-top: 28px;
+
+  padding: 14px 30px;
+
+  border:
+    1px solid
+    rgba(255, 135, 195, 0.55);
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 70, 150, 0.18),
+      rgba(130, 40, 100, 0.12)
+    );
+
+  color: #fff;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 20px
+    rgba(255, 70, 160, 0.14),
+
+    inset 0 0 15px
+    rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.main-button:hover {
+  transform:
+    translateY(-3px);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 80, 160, 0.3),
+      rgba(140, 50, 110, 0.18)
+    );
+
+  box-shadow:
+    0 0 28px
+    rgba(255, 80, 170, 0.35);
+}
+
+.main-button:active {
+  transform:
+    translateY(0);
+}
+
+.main-button.countdown-locked {
+  pointer-events: none !important;
+
+  cursor: not-allowed !important;
+
+  opacity: 0.45 !important;
+
+  filter: grayscale(0.2);
+}
+
+.hint {
+  margin-top: 14px;
+
+  color:
+    rgba(255, 255, 255, 0.32);
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   GIFT PAGE
+========================================================= */
+
+.page-gift {
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.gift-content {
+  position: relative;
+
+  z-index: 30;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.gift-box {
+  position: relative;
+
+  width: 180px;
+  height: 170px;
+
+  margin: 20px auto 30px;
+
+  cursor: pointer;
+
+  transform-style: preserve-3d;
+
+  filter:
+    drop-shadow(
+      0 20px 35px
+      rgba(255, 50, 150, 0.22)
+    );
+
+  transition:
+    transform 0.5s ease;
+}
+
+.gift-box:hover {
+  transform:
+    translateY(-8px)
+    rotateY(5deg);
+}
+
+.gift-body {
+  position: absolute;
+
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+
+  height: 110px;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b92d67,
+      #ec5591,
+      #9b2058
+    );
+
+  box-shadow:
+    inset 0 0 20px
+    rgba(255, 255, 255, 0.12),
+
+    0 15px 30px
+    rgba(0, 0, 0, 0.35);
+}
+
+.gift-lid {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: 35px;
+
+  height: 35px;
+
+  border-radius: 6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e44b89,
+      #ff76ad,
+      #b52d68
+    );
+
+  z-index: 5;
+
+  transition:
+    transform 0.7s ease;
+}
+
+.gift-box.opened .gift-lid {
+  transform:
+    translateY(-45px)
+    rotate(-4deg);
+}
+
+.gift-ribbon.vertical {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 28px;
+
+  transform:
+    translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffd86b,
+      #fff0a6,
+      #e7aa43
+    );
+
+  z-index: 2;
+}
+
+.gift-ribbon.horizontal {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: 40px;
+
+  height: 18px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #e7aa43,
+      #fff0a6,
+      #e7aa43
+    );
+}
+
+.gift-bow {
+  position: absolute;
+
+  top: 10px;
+  left: 50%;
+
+  width: 70px;
+  height: 50px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 10;
+}
+
+.gift-bow span {
+  position: absolute;
+
+  width: 38px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffe889,
+      #e6a83e
+    );
+}
+
+.gift-bow span:first-child {
+  left: 0;
+
+  transform:
+    rotate(-25deg);
+}
+
+.gift-bow span:last-child {
+  right: 0;
+
+  transform:
+    rotate(25deg);
+}
+
+.gift-text {
+  max-width: 430px;
+
+  color:
+    rgba(255, 255, 255, 0.65);
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   SPECIAL
+========================================================= */
+
+.page-special {
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.special-content {
+  position: relative;
+
+  z-index: 50;
+
+  width: 100%;
+
+  max-width: 700px;
+
+  padding: 30px;
+}
+
+.special-photo-area {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: min(90vw, 700px);
+
+  height: clamp(250px, 42vh, 360px);
+
+  margin: 24px auto;
+}
+
+.special-main-photo {
+  position: relative;
+
+  z-index: 20;
+
+  width: 180px;
+
+  height: 220px;
+
+  padding: 8px;
+
+  border: 1px solid rgba(255, 160, 210, 0.3);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 80, 160, 0.18);
+}
+
+.special-main-photo img {
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.photo-glow {
+  position: absolute;
+
+  inset: -18px;
+
+  z-index: -1;
+
+  border-radius: 50%;
+
+  background: rgba(255, 90, 175, 0.16);
+
+  filter: blur(28px);
+
+  pointer-events: none;
+}
+
+.special-content h1 {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(70px, 12vw, 150px);
+
+  font-weight: 400;
+
+  line-height: 0.78;
+
+  color: white;
+
+  text-shadow:
+    0 0 30px
+    rgba(255, 90, 175, 0.22);
+}
+
+.special-content p {
+  margin-top: 30px;
+
+  color:
+    rgba(255, 255, 255, 0.58);
+}
+
+
+/* =========================================================
+   SIDE PHOTO
+========================================================= */
+
+.side-photo {
+  position: absolute;
+
+  width: 145px;
+  height: 185px;
+
+  padding: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  border:
+    1px solid
+    rgba(255, 160, 210, 0.25);
+
+  box-shadow:
+    0 15px 45px
+    rgba(0, 0, 0, 0.4),
+
+    0 0 25px
+    rgba(255, 80, 160, 0.12);
+
+  backdrop-filter: blur(5px);
+
+  z-index: 15;
+
+  transition:
+    transform 0.5s ease;
+}
+
+.side-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.side-photo:hover {
+  transform:
+    scale(1.08)
+    rotate(0deg) !important;
+
+  z-index: 60;
+}
+
+.photo-left {
+  left: 5%;
+}
+
+.photo-right {
+  right: 5%;
+}
+
+.photo-left-1 {
+  top: 12%;
+
+  transform:
+    rotate(-9deg);
+}
+
+.photo-left-2 {
+  top: 40%;
+
+  transform:
+    rotate(6deg);
+}
+
+.photo-left-3 {
+  bottom: 8%;
+
+  transform:
+    rotate(-5deg);
+}
+
+.photo-right-1 {
+  top: 10%;
+
+  transform:
+    rotate(8deg);
+}
+
+.photo-right-2 {
+  top: 42%;
+
+  transform:
+    rotate(-7deg);
+}
+
+.photo-right-3 {
+  bottom: 7%;
+
+  transform:
+    rotate(5deg);
+}
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.page-letter {
+  display: flex;
+
+  overflow: hidden;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  padding:
+    50px 20px 30px;
+
+  position: relative;
+
+  z-index: 10;
+}
+
+.letter-container {
+  width:
+    min(90vw, 850px);
+
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  position: relative;
+
+  z-index: 30;
+}
+
+.letter-container h1 {
+  margin-bottom: 25px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(30px, 5vw, 55px);
+
+  font-weight: 400;
+
+  text-align: center;
+}
+
+.letter-card {
+  width: 100%;
+
+  max-width: 760px;
+
+  max-height: 58vh;
+
+  overflow-y: auto;
+
+  padding: 35px 42px;
+
+  border:
+    1px solid
+    rgba(255, 150, 205, 0.18);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 80, 160, 0.025)
+    );
+
+  box-shadow:
+    0 20px 70px
+    rgba(0, 0, 0, 0.32),
+
+    inset 0 0 25px
+    rgba(255, 255, 255, 0.025);
+
+  backdrop-filter: blur(14px);
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(255, 105, 175, 0.55)
+    transparent;
+}
+
+.letter-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.letter-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.letter-card::-webkit-scrollbar-thumb {
+  background:
+    rgba(255, 105, 175, 0.55);
+
+  border-radius: 10px;
+}
+
+.letter-card h3 {
+  margin-bottom: 25px;
+
+  color: #ffacd1;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 19px;
+
+  text-align: center;
+}
+
+.letter-card p {
+  margin-bottom: 22px;
+
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 15px;
+
+  line-height: 1.95;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.page-gallery {
+  display: block;
+
+  overflow-y: auto;
+
+  padding:
+    54px 25px 100px;
+
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+
+  scrollbar-width: thin;
+}
+
+.gallery-container {
+  width: min(100%, 1160px);
+
+  margin: 0 auto;
+}
+
+.gallery-header {
+  position: relative;
+
+  z-index: 40;
+
+  margin: 0 auto 42px;
+
+  animation: galleryFadeIn .75s ease both;
+}
+
+.gallery-header .small-label {
+  color: #ffacd1;
+
+  letter-spacing: 4px;
+
+  text-shadow: 0 0 18px rgba(255, 120, 185, .3);
+}
+
+.gallery-header h2 {
+  margin-top: 12px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(38px, 5vw, 64px);
+
+  font-weight: 400;
+
+  letter-spacing: .02em;
+
+  text-shadow: 0 8px 35px rgba(255, 100, 170, .16);
+}
+
+.gallery-header p {
+  margin: 14px auto 0;
+
+  max-width: 520px;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.photo-grid {
+  position: relative;
+
+  z-index: 40;
+
+  width: 100%;
+
+  margin: 0 auto 38px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  grid-auto-rows: 8px;
+
+  grid-auto-flow: dense;
+
+  gap: 16px;
+}
+
+.memory-card {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  border:
+    1px solid rgba(255, 170, 210, .2);
+
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .07), rgba(255, 110, 175, .035));
+
+  cursor: pointer;
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, .34),
+    0 0 18px rgba(255, 100, 170, .06);
+
+  transition:
+    transform .4s ease,
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+
+.memory-card:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 18;
+}
+
+.memory-card:nth-child(2) {
+  grid-row: span 14;
+}
+
+.memory-card:nth-child(3) {
+  grid-row: span 16;
+}
+
+.memory-card:nth-child(4) {
+  grid-row: span 13;
+}
+
+.memory-card:nth-child(5) {
+  grid-column: span 2;
+  grid-row: span 15;
+}
+
+.memory-card:nth-child(6) {
+  grid-row: span 14;
+}
+
+.memory-card:nth-child(7) {
+  grid-row: span 12;
+}
+
+.memory-card:nth-child(8) {
+  grid-column: span 2;
+  grid-row: span 16;
+}
+
+.memory-card:nth-child(9) {
+  grid-row: span 14;
+}
+
+.memory-card:hover {
+  transform:
+    translateY(-5px)
+    scale(1.015);
+
+  border-color: rgba(255, 175, 215, .42);
+
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, .4),
+    0 0 26px rgba(255, 100, 170, .16);
+}
+
+.memory-image {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 160, 205, .1), transparent 70%),
+    #100b12;
+}
+
+.memory-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: block;
+
+  transition:
+    transform .65s cubic-bezier(.2, .7, .2, 1),
+    filter .5s ease;
+}
+
+.memory-card:hover
+.memory-image img {
+  transform:
+    scale(1.045);
+
+  filter: saturate(1.04);
+}
+
+.memory-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: flex-end;
+
+  gap: 5px;
+
+  padding: 18px;
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(7, 5, 10, .78) 0%,
+      rgba(7, 5, 10, .18) 38%,
+      transparent 68%
+    );
+
+  opacity: 0;
+
+  transition:
+    opacity .35s ease;
+}
+
+.memory-card:hover
+.memory-overlay {
+  opacity: 1;
+}
+
+.memory-overlay span {
+  color: rgba(255, 205, 228, .88);
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+}
+
+.memory-overlay p {
+  color: #fff;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  letter-spacing: .02em;
+
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, .6);
+}
+
+@keyframes galleryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-gallery.active .memory-card {
+  animation: galleryFadeIn .65s ease both;
+}
+
+.page-gallery.active .memory-card:nth-child(2) {
+  animation-delay: .05s;
+}
+
+.page-gallery.active .memory-card:nth-child(3) {
+  animation-delay: .1s;
+}
+
+.page-gallery.active .memory-card:nth-child(4) {
+  animation-delay: .15s;
+}
+
+.page-gallery.active .memory-card:nth-child(5) {
+  animation-delay: .2s;
+}
+
+.page-gallery.active .memory-card:nth-child(6) {
+  animation-delay: .25s;
+}
+
+.page-gallery.active .memory-card:nth-child(7) {
+  animation-delay: .3s;
+}
+
+.page-gallery.active .memory-card:nth-child(8) {
+  animation-delay: .35s;
+}
+
+.page-gallery.active .memory-card:nth-child(9) {
+  animation-delay: .4s;
+}
+
+.gallery-button {
+  margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.page-video {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-direction: column;
+
+  padding:
+    35px 20px 40px;
+
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+}
+
+.video-header {
+  position: relative;
+
+  z-index: 30;
+
+  margin-bottom: 20px;
+}
+
+.video-header h1 {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(45px, 7vw, 80px);
+
+  font-weight: 400;
+}
+
+.video-header p {
+  margin-top: 10px;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+}
+
+.video-wrapper {
+  position: relative;
+
+  z-index: 30;
+
+  width:
+    min(94vw, 1250px);
+
+  max-width: 1250px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 140, 200, 0.2);
+
+  background: #000;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.45),
+
+    0 0 30px
+    rgba(255, 70, 160, 0.1);
+}
+
+.page-video
+.video-wrapper
+video {
+  width: 100%;
+
+  max-width: 1250px;
+
+  min-height: 55vh;
+
+  max-height: 72vh;
+
+  object-fit: contain;
+
+  display: block;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   WISH
+========================================================= */
+
+.page-wish {
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.wishes-container {
+  position: relative;
+
+  z-index: 40;
+
+  width:
+    min(90vw, 760px);
+}
+
+.wish-card {
+  padding: 45px;
+
+  border:
+    1px solid
+    rgba(255, 140, 200, 0.18);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 80, 160, 0.025)
+    );
+
+  backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 25px 70px
+    rgba(0, 0, 0, 0.35);
+}
+
+.wish-card h1 {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(45px, 7vw, 80px);
+
+  font-weight: 400;
+}
+
+.wish-subtitle {
+  margin-top: 10px;
+
+  color: #ff9fc9;
+}
+
+.wish-text {
+  margin-top: 35px;
+}
+
+.wish-text p {
+  margin-bottom: 20px;
+
+  color:
+    rgba(255, 255, 255, 0.68);
+
+  line-height: 1.8;
+}
+
+.heart-symbol {
+  margin: 25px 0;
+
+  font-size: 55px;
+
+  color: #ff79b8;
+
+  text-shadow:
+    0 0 20px
+    rgba(255, 80, 160, 0.7);
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.page-final {
+  text-align: center;
+
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.final-content {
+  position: relative;
+
+  z-index: 50;
+
+  width:
+    min(90vw, 850px);
+}
+
+.final-content h1 {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(55px, 9vw, 100px);
+
+  font-weight: 400;
+}
+
+.final-content h2 {
+  margin-top: 5px;
+
+  color: #ff91c8;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(25px, 4vw, 45px);
+
+  font-weight: 400;
+}
+
+.final-content p {
+  max-width: 650px;
+
+  margin: 25px auto 0;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  line-height: 1.8;
+}
+
+.final-heart {
+  margin: 25px 0 10px;
+
+  font-size: 70px;
+
+  color: #ff78b7;
+
+  text-shadow:
+    0 0 20px
+    rgba(255, 80, 160, 0.75);
+}
+
+.forever {
+  color: #ff9bca;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 20px;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   LOVE EXPLOSION
+========================================================= */
+
+.love-explosion-layer {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.explosion-heart {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  opacity: 1;
+
+  font-size: 22px;
+
+  color: #ff6fa8;
+
+  text-shadow:
+    0 0 8px
+    rgba(255, 105, 170, 0.9),
+
+    0 0 18px
+    rgba(255, 80, 150, 0.8),
+
+    0 0 35px
+    rgba(255, 70, 140, 0.7);
+
+  animation:
+    loveExplosion
+    1.15s
+    cubic-bezier(.15, .75, .25, 1)
+    forwards;
+}
+/* =========================================================
+   FLOWER GARDEN
+   PERBAIKAN LAYER BUNGA
+========================================================= */
+
+.flower-garden {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  /*
+     Bunga tetap berada di bagian bawah.
+     Tingginya dipertahankan agar tampilan bunga
+     tidak berubah terlalu jauh.
+  */
+  height: 210px;
+
+  /*
+     ========================================================
+     PERBAIKAN UTAMA
+     ========================================================
+
+     Sebelumnya:
+     z-index: 20;
+
+     Sekarang bunga berada di belakang halaman.
+  */
+  z-index: 1 !important;
+
+  /*
+     Bunga tidak boleh menangkap klik.
+  */
+  pointer-events: none !important;
+
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity .8s ease,
+    visibility .8s ease;
+}
+
+
+/* =========================================================
+   FLOWER VISIBLE
+========================================================= */
+
+.flower-garden.flowers-visible {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+.flower-garden:not(.flowers-visible) *,
+.flower-garden:not(.flowers-visible) *::before,
+.flower-garden:not(.flowers-visible) *::after {
+  animation-play-state: paused !important;
+}
+
+
+/* =========================================================
+   SEMUA ELEMEN BUNGA
+   TIDAK BOLEH MENGGANGGU KLIK
+========================================================= */
+
+.flower-garden,
+.flower-garden * {
+  pointer-events: none !important;
+}
+
+
+/* =========================================================
+   BATANG RAMBATAN BAWAH
+========================================================= */
+
+.vine {
+  position: absolute;
+
+  bottom: 0;
+
+  width: var(--vine-width);
+  height: var(--vine-height);
+
+  transform-origin: bottom center;
+
+  opacity: 0;
+
+  border-radius: 100px;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      #285c3c 18%,
+      #4c9d5f 42%,
+      #78c96b 55%,
+      #39784d 78%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 5px rgba(90, 190, 110, .4),
+    0 0 12px rgba(90, 180, 110, .2);
+
+  animation:
+    bottomVineGrow
+    2s
+    cubic-bezier(.2, .8, .2, 1)
+    forwards;
+}
+
+.vine::after {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      rgba(190, 255, 190, .3),
+      transparent
+    );
+
+  opacity: .55;
+}
+
+
+@keyframes bottomVineGrow {
+
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    height: var(--vine-height);
+    opacity: .95;
+  }
+
+}
+
+
+/* =========================================================
+   CABANG RAMBATAN
+========================================================= */
+
+.vine-branch {
+  position: absolute;
+
+  width: var(--branch-width);
+  height: 4px;
+
+  background:
+    linear-gradient(
+      to right,
+      #315f3d,
+      #6dbb65,
+      transparent
+    );
+
+  border-radius: 10px;
+
+  transform-origin: left center;
+
+  opacity: 0;
+
+  animation:
+    branchAppear
+    .8s
+    ease
+    var(--branch-delay)
+    forwards;
+}
+
+
+@keyframes branchAppear {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scaleX(0)
+      rotate(var(--branch-rotate));
+  }
+
+  to {
+    opacity: .9;
+
+    transform:
+      scaleX(1)
+      rotate(var(--branch-rotate));
+  }
+
+}
+
+
+/* =========================================================
+   DAUN RAMBATAN BAWAH
+========================================================= */
+
+.climbing-leaf {
+  position: absolute;
+
+  width: var(--leaf-width);
+  height: var(--leaf-height);
+
+  border-radius:
+    100% 0
+    100% 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b5ef91 0%,
+      #76c96c 35%,
+      #3d8e54 72%,
+      #245f3b 100%
+    );
+
+  box-shadow:
+    0 0 7px rgba(120, 210, 130, .35),
+    inset 0 0 5px rgba(255, 255, 255, .2);
+
+  opacity: 0;
+
+  transform-origin: center;
+
+  animation:
+    bottomLeafGrow
+    .8s
+    ease
+    var(--leaf-delay)
+    forwards;
+}
+
+.climbing-leaf::after {
+  content: '';
+
+  position: absolute;
+
+  left: 12%;
+  top: 48%;
+
+  width: 76%;
+  height: 1px;
+
+  background:
+    rgba(220, 255, 210, .5);
+
+  transform:
+    rotate(-10deg);
+}
+
+.climbing-leaf.left {
+  transform:
+    rotate(-35deg)
+    scale(.1);
+}
+
+.climbing-leaf.right {
+  transform:
+    scaleX(-1)
+    rotate(-35deg)
+    scale(.1);
+}
+
+
+@keyframes bottomLeafGrow {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      rotate(-35deg)
+      scale(.1);
+  }
+
+  65% {
+    opacity: 1;
+
+    transform:
+      rotate(-35deg)
+      scale(1.08);
+  }
+
+  100% {
+    opacity: .95;
+
+    transform:
+      rotate(-35deg)
+      scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   BUNGA DI RAMBATAN BAWAH
+========================================================= */
+
+.climbing-flower {
+  position: absolute;
+
+  width: var(--flower-size);
+  height: var(--flower-size);
+
+  opacity: 0;
+
+  transform:
+    scale(.1)
+    rotate(-15deg);
+
+  animation:
+    flowerBloom
+    1s
+    cubic-bezier(.2, .8, .2, 1)
+    var(--flower-delay)
+    forwards;
+
+  filter:
+    drop-shadow(
+      0 0 7px
+      rgba(255, 140, 200, .65)
+    )
+    drop-shadow(
+      0 0 16px
+      rgba(255, 90, 180, .3)
+    );
+}
+
+
+@keyframes flowerBloom {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(.1)
+      rotate(-20deg);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform:
+      scale(1.15)
+      rotate(8deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(0deg);
+  }
+
+}
+
+
+/* =========================================================
+   KELOPAK BUNGA RAMBATAN
+========================================================= */
+
+.climbing-petal {
+  position: absolute;
+
+  width: 48%;
+  height: 48%;
+
+  left: 26%;
+  top: 26%;
+
+  border-radius:
+    50%
+    50%
+    45%
+    45%;
+
+  background:
+    radial-gradient(
+      circle at 38% 32%,
+      rgba(255, 255, 255, .98),
+      rgba(255, 220, 240, .95) 28%,
+      rgba(255, 143, 202, .9) 60%,
+      rgba(210, 65, 145, .9) 100%
+    );
+
+  box-shadow:
+    0 0 8px
+    rgba(255, 120, 190, .7),
+
+    inset 0 0 7px
+    rgba(255, 255, 255, .5);
+}
+
+.climbing-petal:nth-child(1) {
+  transform:
+    translateY(-52%);
+}
+
+.climbing-petal:nth-child(2) {
+  transform:
+    translateX(52%);
+}
+
+.climbing-petal:nth-child(3) {
+  transform:
+    translateY(52%);
+}
+
+.climbing-petal:nth-child(4) {
+  transform:
+    translateX(-52%);
+}
+
+
+/* =========================================================
+   TENGAH BUNGA RAMBATAN
+========================================================= */
+
+.climbing-flower-center {
+  position: absolute;
+
+  width: 25%;
+  height: 25%;
+
+  left: 37.5%;
+  top: 37.5%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff9a9 0%,
+      #ffd45e 48%,
+      #ff9b38 100%
+    );
+
+  box-shadow:
+    0 0 9px
+    rgba(255, 220, 100, .95);
+}
+
+
+/* =========================================================
+   BUNGA BESAR BAGIAN BAWAH
+========================================================= */
+
+.edge-flower {
+  position: absolute;
+
+  bottom: -65px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transform-origin: bottom center;
+
+  animation:
+    flowerGrow
+    var(--flower-grow)
+    ease-out
+    forwards,
+
+    flowerFloat
+    var(--flower-float)
+    ease-in-out
+    var(--flower-grow)
+    infinite
+    alternate;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(255, 150, 210, .55)
+    )
+    drop-shadow(
+      0 0 18px
+      rgba(255, 100, 180, .25)
+    );
+}
+
+
+/* =========================================================
+   KEPALA BUNGA
+========================================================= */
+
+.flower-head {
+  position: relative;
+
+  width: var(--flower-size);
+  height: var(--flower-size);
+
+  animation:
+    flowerRotate
+    7s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+/* =========================================================
+   KELOPAK BUNGA BESAR
+========================================================= */
+
+.flower-petal {
+  position: absolute;
+
+  width: 48%;
+  height: 48%;
+
+  left: 26%;
+  top: 26%;
+
+  border-radius:
+    50%
+    50%
+    45%
+    45%;
+
+  transform-origin: center;
+
+  background:
+    radial-gradient(
+      circle at 40% 35%,
+      rgba(255, 255, 255, .95),
+      rgba(255, 190, 225, .85) 35%,
+      rgba(255, 105, 180, .85) 75%,
+      rgba(210, 55, 135, .8)
+    );
+
+  box-shadow:
+    0 0 7px
+    rgba(255, 130, 200, .8),
+
+    inset 0 0 8px
+    rgba(255, 255, 255, .4);
+}
+
+.flower-petal:nth-child(1) {
+  transform:
+    translateY(-55%);
+}
+
+.flower-petal:nth-child(2) {
+  transform:
+    translateX(55%);
+}
+
+.flower-petal:nth-child(3) {
+  transform:
+    translateY(55%);
+}
+
+.flower-petal:nth-child(4) {
+  transform:
+    translateX(-55%);
+}
+
+
+/* =========================================================
+   TENGAH BUNGA
+========================================================= */
+
+.flower-center {
+  position: absolute;
+
+  width: 25%;
+  height: 25%;
+
+  left: 37.5%;
+  top: 37.5%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff8a8 0%,
+      #ffd86b 45%,
+      #ff9d42 100%
+    );
+
+  box-shadow:
+    0 0 8px
+    rgba(255, 220, 100, .9);
+}
+
+
+/* =========================================================
+   BATANG BUNGA
+========================================================= */
+
+.flower-stem {
+  position: absolute;
+
+  width: 5px;
+
+  height: var(--stem-height);
+
+  bottom:
+    calc(
+      var(--stem-height) * -1 + 8px
+    );
+
+  background:
+    linear-gradient(
+      to right,
+      #4a9d65,
+      #8fd36c,
+      #3f8c59
+    );
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   DAUN BUNGA
+========================================================= */
+
+.flower-leaf {
+  position: absolute;
+
+  width: 22px;
+  height: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8fd36c,
+      #3f8c59
+    );
+
+  border-radius:
+    100%
+    0
+    100%
+    0;
+}
+
+.flower-leaf.left {
+  left: -18px;
+
+  top: 48%;
+
+  transform:
+    rotate(-25deg);
+}
+
+.flower-leaf.right {
+  right: -18px;
+
+  top: 62%;
+
+  transform:
+    scaleX(-1)
+    rotate(-25deg);
+}
+
+
+/* =========================================================
+   ANIMASI TUMBUH BUNGA
+========================================================= */
+
+@keyframes flowerGrow {
+
+  0% {
+    transform:
+      translateY(40px)
+      scale(.05)
+      rotate(-8deg);
+
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  75% {
+    transform:
+      translateY(0)
+      scale(1.05)
+      rotate(4deg);
+  }
+
+  100% {
+    transform:
+      translateY(0)
+      scale(1)
+      rotate(0deg);
+
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   ANIMASI GERAK HALUS BUNGA
+========================================================= */
+
+@keyframes flowerFloat {
+
+  from {
+    margin-left: -5px;
+  }
+
+  to {
+    margin-left: 7px;
+  }
+
+}
+
+
+/* =========================================================
+   ANIMASI ROTASI BUNGA
+========================================================= */
+
+@keyframes flowerRotate {
+
+  from {
+    transform:
+      rotate(-4deg);
+  }
+
+  to {
+    transform:
+      rotate(4deg);
+  }
+
+}
+
+
+/* =========================================================
+   POSISI BUNGA BAWAH
+========================================================= */
+
+.edge-flower.left-edge {
+  left:
+    var(--flower-position);
+}
+
+.edge-flower.right-edge {
+  left:
+    var(--flower-position);
+
+  right: auto;
+}
+
+
+/* =========================================================
+   AUTO SCROLL LETTER
+========================================================= */
+
+.page-letter .letter-card {
+  scroll-behavior: auto;
+}
+
+.page-letter.auto-scrolling
+.letter-card {
+  scrollbar-width: thin;
+}
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+.lightbox {
+  position: fixed;
+
+  inset: 0;
+
+  /*
+     Lightbox tetap paling depan.
+     Bunga tidak akan pernah menutupi lightbox.
+  */
+  z-index: 100000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    rgba(0, 0, 0, 0.88);
+
+  backdrop-filter: blur(15px);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity .35s ease,
+    visibility .35s ease;
+}
+
+.lightbox.show {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+
+  max-width: 90vw;
+  max-height: 90vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content img {
+  max-width: 85vw;
+  max-height: 82vh;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 20px 80px
+    rgba(0, 0, 0, .6),
+
+    0 0 35px
+    rgba(255, 80, 160, .15);
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+
+  z-index: 10;
+
+  width: 50px;
+  height: 50px;
+
+  border:
+    1px solid
+    rgba(255, 150, 205, .3);
+
+  border-radius: 50%;
+
+  background:
+    rgba(20, 10, 20, .75);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 30px;
+
+  backdrop-filter: blur(10px);
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background:
+    rgba(255, 80, 160, .25);
+
+  transform:
+    scale(1.08);
+}
+
+.lightbox-close {
+  top: 25px;
+  right: 25px;
+}
+
+.lightbox-prev {
+  left: 25px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+.lightbox-next {
+  right: 25px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+#lightbox .lightbox-close,
+#lightbox .lightbox-prev,
+#lightbox .lightbox-next {
+  position: absolute !important;
+}
+
+.lightbox-prev:hover {
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+.lightbox-next:hover {
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+.lightbox-counter {
+  position: absolute;
+
+  bottom: -35px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  color:
+    rgba(255, 255, 255, .65);
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero-content {
+    padding: 20px;
+  }
+
+
+  .small-label {
+    font-size: 9px;
+
+    letter-spacing: 2.5px;
+  }
+
+
+  .countdown {
+    gap: 5px;
+
+    margin-top: 30px;
+  }
+
+
+  .time-box {
+    min-width: 58px;
+  }
+
+
+  .time-box span {
+    font-size: 35px;
+  }
+
+
+  .separator {
+    font-size: 25px;
+  }
+
+
+  .main-button {
+    padding: 12px 22px;
+
+    font-size: 10px;
+  }
+
+
+  /* -----------------------------------------
+     FOTO SPECIAL
+  ----------------------------------------- */
+
+  .side-photo {
+    width: 85px;
+    height: 110px;
+  }
+
+
+  .photo-left {
+    left: 2%;
+  }
+
+
+  .photo-right {
+    right: 2%;
+  }
+
+
+  .photo-left-1,
+  .photo-right-1 {
+    top: 8%;
+  }
+
+
+  .photo-left-2,
+  .photo-right-2 {
+    top: 43%;
+  }
+
+
+  .photo-left-3,
+  .photo-right-3 {
+    bottom: 6%;
+  }
+
+
+  /* -----------------------------------------
+     LETTER
+  ----------------------------------------- */
+
+  .page-letter {
+    padding:
+      30px
+      12px
+      25px;
+  }
+
+
+  .letter-card {
+    max-height: 57vh;
+
+    padding:
+      25px 20px;
+  }
+
+
+  .letter-card p {
+    font-size: 13px;
+
+    line-height: 1.8;
+  }
+
+
+  /* -----------------------------------------
+     GALLERY
+  ----------------------------------------- */
+
+  .page-gallery {
+    padding:
+      30px
+      12px
+      80px;
+  }
+
+
+  .photo-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    grid-auto-rows: 7px;
+
+    gap: 12px;
+  }
+
+
+  .memory-card:nth-child(1),
+  .memory-card:nth-child(5),
+  .memory-card:nth-child(8) {
+    grid-column: span 2;
+  }
+
+
+  .memory-overlay {
+    padding: 14px;
+  }
+
+
+  /* -----------------------------------------
+     VIDEO
+  ----------------------------------------- */
+
+  .page-video .video-wrapper {
+    width: 96vw;
+  }
+
+
+  .page-video
+  .video-wrapper
+  video {
+    min-height: 40vh;
+
+    max-height: 65vh;
+  }
+
+
+  /* -----------------------------------------
+     WISH
+  ----------------------------------------- */
+
+  .wish-card {
+    padding:
+      30px 20px;
+  }
+
+
+  .wish-text p {
+    font-size: 13px;
+  }
+
+
+  /* -----------------------------------------
+     FLOWER GARDEN
+     PERBAIKAN LAYER TETAP AKTIF
+  ----------------------------------------- */
+
+  .flower-garden {
+    /*
+       Ukuran asli mobile dipertahankan.
+       Hanya layer yang diperbaiki.
+    */
+    height: 145px;
+
+    z-index: 1 !important;
+
+    pointer-events: none !important;
+  }
+
+
+  .flower-garden * {
+    pointer-events: none !important;
+  }
+
+
+  .vine {
+    opacity: .85;
+  }
+
+
+  .climbing-flower {
+    transform-origin: center;
+  }
+
+
+  .climbing-leaf {
+    transform-origin: center;
+  }
+
+
+  .edge-flower {
+    transform-origin:
+      bottom center;
+  }
+
+
+  .flower-head {
+    width:
+      calc(
+        var(--flower-size) * .72
+      );
+
+    height:
+      calc(
+        var(--flower-size) * .72
+      );
+  }
+
+
+  .flower-stem {
+    height:
+      calc(
+        var(--stem-height) * .75
+      );
+  }
+
+
+  /* -----------------------------------------
+     LIGHTBOX
+  ----------------------------------------- */
+
+  .lightbox-prev,
+  .lightbox-next {
+    width: 42px;
+    height: 42px;
+
+    font-size: 24px;
+  }
+
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+
+  .lightbox-next {
+    right: 10px;
+  }
+
+
+  .lightbox-close {
+    top: 15px;
+    right: 15px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hero-content h1 {
+    font-size: 43px;
+  }
+
+
+  .hero-content h2 {
+    font-size: 29px;
+  }
+
+
+  .countdown {
+    transform:
+      scale(.9);
+  }
+
+
+  .time-box {
+    min-width: 48px;
+  }
+
+
+  .time-box span {
+    font-size: 30px;
+  }
+
+
+  .photo-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    grid-auto-rows: 5px;
+
+    gap: 9px;
+  }
+
+
+  .memory-card:nth-child(1) {
+    grid-row: span 20;
+  }
+
+
+  .memory-card:nth-child(2),
+  .memory-card:nth-child(6),
+  .memory-card:nth-child(9) {
+    grid-row: span 16;
+  }
+
+
+  .memory-card:nth-child(3),
+  .memory-card:nth-child(7) {
+    grid-row: span 18;
+  }
+
+
+  .memory-card:nth-child(4) {
+    grid-row: span 15;
+  }
+
+
+  .memory-card:nth-child(5),
+  .memory-card:nth-child(8) {
+    grid-row: span 18;
+  }
+
+
+  .memory-card {
+    border-radius: 14px;
+  }
+
+
+  .memory-overlay {
+    opacity: .8;
+
+    padding: 11px;
+  }
+
+
+  .memory-overlay p {
+    font-size: 13px;
+  }
+
+
+  .lightbox {
+    padding: 16px;
+  }
+
+
+  .lightbox-content img {
+    max-width: 94vw;
+
+    max-height: 78vh;
+  }
+
+
+  .side-photo {
+    width: 70px;
+    height: 92px;
+  }
+
+
+  /*
+     BUNGA MOBILE
+     Tetap berada di belakang.
+  */
+
+  .flower-garden {
+    height: 125px;
+
+    z-index: 1 !important;
+
+    pointer-events: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   PAGE LOADED
+========================================================= */
+
+body.page-loaded .page {
+  transition:
+    opacity .75s ease,
+    visibility .75s ease,
+    transform .75s ease;
+}
+
+
+/* =========================================================
+   FINAL FLOWER SAFETY LAYER
+   =========================================================
+   Ini sengaja diletakkan PALING BAWAH dari seluruh
+   elemen interaktif halaman.
+========================================================= */
+
+.flower-garden {
+  z-index: 1 !important;
+
+  pointer-events: none !important;
+}
+
+.flower-garden *,
+.flower-garden::before,
+.flower-garden::after {
+  pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CONTENT SAFETY
+========================================================= */
+
+.page,
+.page-content,
+.hero-content,
+.gift-content,
+.special-content,
+.letter-container,
+.gallery-header,
+.photo-grid,
+.video-header,
+.video-wrapper,
+.wishes-container,
+.final-content {
+  position: relative;
+
+  z-index: 10;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars.stars-active .falling-star {
+    animation: none;
+
+    opacity: .25;
+  }
+}
+
+
+/* =========================================================
+   INTERACTIVE ELEMENT SAFETY
+========================================================= */
+
+button,
+a,
+.main-button,
+.memory-card,
+.gift-box,
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: relative;
+
+  z-index: 30;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   LIGHTBOX ALWAYS ON TOP
+========================================================= */
+
+.lightbox {
+  z-index: 100000;
+}
